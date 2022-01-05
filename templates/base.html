@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Marche Unique</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/logo2.png">
+    <link rel="stylesheet" href="../static/vendor/chartist/css/chartist.min.css">
+    <link href="../static/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../static/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/icons/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../static/icons/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../static/icons/font-awesome-old/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/icons/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../static/icons/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../static/icons/line-awesome/css/line-awesome.min.css">
+    <link rel="stylesheet" href="../static/vendor/metismenu/css/metisMenu.min.css">
+    <link href="../static/css/a.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> -->
+
+
+
+    <!-- <link rel="icon" type="image/png" sizes="16x16" href="/static/img/logo2.jpeg"> -->
+    <link rel="stylesheet" href="/static/vendor/chartist/css/chartist.min.css">
+    <link href="../static/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../static/vendor/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="../static/css/a/css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/icons/flaticon/flaticon.css">
+    <link rel="stylesheet" href="../static/icons/simple-line-icons/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../static/icons/font-awesome-old/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/icons/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="../static/icons/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../static/icons/line-awesome/css/line-awesome.min.css">
+
+    <link rel="stylesheet" href="../static/vendor/aos/css/aos.min.css">
+
+
+    <!-- <link rel="stylesheet" type="text/css" href="../static/DataTables/datatables.min.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../static/vendor/bootstrap/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/addproduct.css"> -->
+    <link rel="stylesheet" type="text/css" href="../static/css/a.css">
+    <link rel="stylesheet" href="../static/vendor/bootstrap/css/bootstrap.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <!-- <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+
+    <!--===============================================================================================-->
+    <!-- <link rel="stylesheet" type="text/css" href="../static/fonts/linearicons-v1.0.0/icon-font.min.css"> -->
+
+
+
+    <style>
+        #dispaly {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            background-color: #f6f6f6;
+        }
+        
+        #dispaly li p {
+            border: 1px solid #ddd;
+            margin-top: -1px;
+            /* Prevent double borders */
+            background-color: #f6f6f6;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px;
+            color: black;
+            display: block
+        }
+        
+        #dispaly li p:hover:not(.header) {
+            background-color: #eee;
+        }
+        
+        .masterp {
+            width: 100%;
+            height: 300px !important;
+            overflow: scroll;
+        }
+    </style>
+
+</head>
+
+<!-- <body oncontextmenu="return false;"> -->
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <!-- <a href="index.html" class="brand-logo d-md-none d-lg-block d-none" >
+                <img  src="/static/images/logo.png" alt="">
+                </a> -->
+            <p class="brand-logo d-none">
+
+                <!-- <img class="logo-abbr  ml-2"  src="/static/img/logo2.jpeg" alt=""> -->
+                <img class="ml-2 d-xll-block  d-lg-none d-md-none d-sm-none d-none" width="100%" height="100%" id="changei" src="/static/img/logo1.png" alt="">
+                <img class="ml-2 logo-abbr d-ximage-none d-lg-block d-md-block d-sm-block d-block" id="changei" src="/static/img/logo1.png" alt="">
+
+            </p>
+            <!-- <p class="brand-logo d-md-block d-lg-none d-sm-block d-block">
+               
+                <img class="logo-abbr "   src="/static/img/logo2.jpeg" alt="">
+                  <img class="brand-title" src="/static/img/logo1.jpeg" alt=""> 
+              
+            </p> -->
+
+            <div class="nav-control " onclick="hideicon()">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Chat box start
+        ***********************************-->
+
+        <!--**********************************
+            Chat box End
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <div class="dashboard_bar">
+                                {{title}}
+                            </div>
+                        </div>
+                        <ul class="navbar-nav header-right">
+
+                            <li class="nav-item dropdown header-profile">
+
+
+
+
+                                <a href="/logout" class=" ai-icon">
+                                    <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                            <polyline points="16 17 21 12 16 7"></polyline>
+                                            <line x1="21" y1="12" x2="9" y2="12"></line>
+                                        </svg>
+                                    <span class="ml-2">Logout </span>
+                                </a>
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+************************
+            Sidebar end
+        ***********************************-->
+
+        <div class="deznav">
+            <div class="deznav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li>
+                        <a class="ai-icon" href="/dashboard" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ai-icon" href="/uploadexcel" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Recommendation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="ai-icon" href="/optimization" aria-expanded="false">
+                            <i class="flaticon-381-networking"></i>
+                            <span class="nav-text">Optimization</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/logout" class=" ai-icon">
+                            <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            <span class="nav-text ml-2">Logout </span>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="copyright">
+                    <p><strong>Copyright </strong> © 2021 Marche Unique. All Rights Reserved</p>
+
+                </div>
+            </div>
+        </div>
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+            <!-- row -->
+            <div class="container-fluid">
+                {% block content%} {% endblock content%}
+
+            </div>
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright © Designed &amp; Developed by <a href="#" target="_blank">Marche Unique</a> 2021</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+        <!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+
+
+    <script src="../static/vendor/global/global.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2-bootstrap-theme@0.1.0-beta.10/dist/select2-bootstrap.min.css" rel="stylesheet" />
+    <script src="../static/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- <script src="/static/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script> -->
+
+    <script src="../static/vendor/chart.js/Chart.bundle.min.js"></script>
+    <script src="../static/js/custom.min.js"></script>
+    <script src="../static/js/deznav-init.js"></script>
+    <script src="../static/vendor/owl-carousel/owl.carousel.js"></script>
+    <!-- <script type="text/javascript" src="../static/DataTables/datatables.min.js"></script> -->
+
+
+
+    <script src="../static/vendor/bootstrap/js/popper.js"></script>
+    <script src="../static/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
+    <script>
+        $(document).ready(function() {
+
+
+            $('.deznav .ps__rail-y').addClass('d-none');
+
+            // $(".owl-nav").addClass("d-none");
+
+            //     $('#ponumber').select2({  // init Select2 on form's name field
+            //         placeholder: "Choose PO # ",
+            //         allowClear: true,
+            //         theme: 'bootstrap'
+            //     });
+            //     $('#ponumber').val(null).trigger('change');
+
+        });
+
+        function hideicon() {
+            var imgsrc = $('#changei').attr('src');
+
+            if (imgsrc == '/static/img/logo1.png') {
+                $("#changei").attr("src", '/static/img/logo1.png');
+            } else {
+                $("#changei").attr("src", '/static/img/logo2.png');
+            }
+
+        }
+
+        // document.onkeydown = function(e) {
+        //     if (event.keyCode == 123) {
+        //         return false;
+        //     }
+        //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+        //         return false;
+        //     }
+        //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+        //         return false;
+        //     }
+        //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+        //         return false;
+        //     }
+        //     if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+        //         return false;
+        //     }
+        //     if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+        //         return false;
+        //     }
+        // }
+    </script>
+
+    <script src="https://messenger.svc.chative.io/static/v1.0/channels/s674c7f8f-3b88-48db-9d4b-5c442fd0e549/messenger.js?mode=livechat" defer="defer"></script>
+
+
+
+
+</body>
+
+</html>

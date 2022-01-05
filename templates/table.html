@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ff6347;
+            z-index: -999;
+        }
+        
+        .spinner {
+            position: fixed;
+            top: 33%;
+            left: 48%;
+            width: 60px;
+            height: 60px;
+            background-color: black;
+            -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
+            animation: sk-rotateplane 1.2s infinite ease-in-out;
+        }
+        
+        @keyframes fadeout {
+            from {
+                opacity: 1;
+            }
+            to {
+                opacity: 0;
+            }
+        }
+        
+        @-webkit-keyframes sk-rotateplane {
+            0% {
+                -webkit-transform: perspective(120px)
+            }
+            50% {
+                -webkit-transform: perspective(120px) rotateY(180deg)
+            }
+            100% {
+                -webkit-transform: perspective(120px) rotateY(180deg) rotateX(180deg)
+            }
+        }
+        
+        @keyframes sk-rotateplane {
+            0% {
+                transform: perspective(120px) rotateX(0deg) rotateY(0deg);
+                -webkit-transform: perspective(120px) rotateX(0deg) rotateY(0deg)
+            }
+            50% {
+                transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg);
+                -webkit-transform: perspective(120px) rotateX(-180.1deg) rotateY(0deg)
+            }
+            100% {
+                transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+                -webkit-transform: perspective(120px) rotateX(-180deg) rotateY(-179.9deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="overlay">
+        <div class="spinner"></div>
+    </div>
+    <input type="submit" name="click me" onclick="a()" id="submit"> **here is the javascript function**
+
+    <script>
+        function a() {
+            var spinner = document.getElementById("spinner");
+            var loading = 0;
+            var id = setInterval(frame, 20);
+
+            function frame() {
+                if (loading == 100) {
+                    clearInterval(id);
+                    window.open("welcome.html", "_self");
+                } else {
+                    loading = loading + 1;
+                    if (loading == 90) {
+                        spinner.style.animation = "fadeout 1s ease";
+
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

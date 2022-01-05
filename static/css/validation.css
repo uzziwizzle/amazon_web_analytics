@@ -1,0 +1,15 @@
+    #name-error,
+    #name-2-error,
+    #password-error,
+    #confirm-error,
+    #email-error,
+    #phone-error,
+    #Address-error,
+    #Zipcode-error,
+    #City-error,
+    #Country-error,
+    #IG-error,
+    #FName-error,
+    #remember-me-error {
+        color: red;
+    }

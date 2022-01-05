@@ -1,0 +1,41 @@
+.h:hover {
+    color: white !important;
+}
+
+#home {
+    background-image: url(../static/images/pexels-pixabay-220067.jpg);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    min-height: 50vh;
+}
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    min-height: 75rem;
+    padding-top: 4.5rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Quicksand', sans-serif;
+}
+
+p {
+    font-size: 18px;
+    font-family: 'Quicksand', sans-serif;
+}
+
+#Quantity-error,
+#id-error,
+#Kitname-error,
+#Photos-error,
+#date-error,
+#Photo1-error {
+    color: red;
+}

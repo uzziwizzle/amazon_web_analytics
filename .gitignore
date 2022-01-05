@@ -1,0 +1,8 @@
+database.db
+/.vscode/
+/__pycache__/
+/wecollaboEnv/
+errorlog.txt
+upload/
+.DS_Store
+config.py

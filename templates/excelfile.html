@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block content %}
+<div class="card rounded-0">
+    <div class="container-fluid">
+
+
+        <form action="/uploadexcel" enctype="multipart/form-data" method="post" class="p-2 pb-3">
+
+
+
+            <fieldset class="form-group border pl-3 pr-3 mb-5">
+                <legend class="w-auto ">Select Excel File</legend>
+                <div class="form-group">
+                    <label for="excel" class="text"></label>
+                    <input type="file" accept=".xlsx" name="excel" id="excel" required>
+                </div>
+            </fieldset>
+            <fieldset class="form-group border pl-3 pr-3 mb-5">
+                <legend class="w-auto ">Select Country</legend>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="US" value="US" name="country" checked>
+                                <label class="form-check-label" for="US">US</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="CA" value="CA" name="country" checked>
+                                <label class="form-check-label" for="CA">CA</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="UK" value="UK" name="country" checked>
+                                <label class="form-check-label" for="UK">UK</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="AU" value="AU" name="country" checked>
+                                <label class="form-check-label" for="AU">AU</label>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </fieldset>
+            <button type="button" onclick="a()" class="btn btn-primary  rounded-0">Submit </button>
+        </form>
+
+
+        <fieldset class="form-group {{hide}} border pl-3 pr-3 mt-5 mb-5">
+            <legend class="w-auto ">Download</legend>
+            <div class="form-group">
+                <a class="text-blue" style="text-decoration-line: underline;" href="/download/{{link}}">Download {{filename}}</a>
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+<script>
+    function a() {
+        alert(1)
+        $("#preloader").fadeOut(500)
+
+    }
+</script>
+{% endblock content %}
