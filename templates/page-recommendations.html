@@ -3,19 +3,19 @@
     <div class="container-fluid">
 
 
-        <form action="/uploadexcel" enctype="multipart/form-data" method="post" class="p-2 pb-3">
+        <form action="/recommendations" enctype="multipart/form-data" method="post" class="p-2 pb-3">
 
 
 
             <fieldset class="form-group border pl-3 pr-3 mb-5">
-                <legend class="w-auto ">Select Excel File</legend>
+                <legend class="w-auto ">Bulkfile</legend>
                 <div class="form-group">
                     <label for="excel" class="text"></label>
                     <input type="file" accept=".xlsx" name="excel" id="excel" required>
                 </div>
             </fieldset>
             <fieldset class="form-group border pl-3 pr-3 mb-5">
-                <legend class="w-auto ">Select Country</legend>
+                <legend class="w-auto ">Country</legend>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -46,10 +46,9 @@
                         </div>
                     </div>
 
-
                 </div>
             </fieldset>
-            <button type="button" onclick="a()" class="btn btn-primary  rounded-0">Submit </button>
+            <button type="submit" class="btn btn-primary rounded-0">Submit </button>
         </form>
 
 
@@ -62,11 +61,5 @@
 
     </div>
 </div>
-<script>
-    function a() {
-        alert(1)
-        $("#preloader").fadeOut(500)
 
-    }
-</script>
 {% endblock content %}

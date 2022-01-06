@@ -6,3 +6,5 @@ errorlog.txt
 upload/
 .DS_Store
 config.py
+/venv/
+/data/
