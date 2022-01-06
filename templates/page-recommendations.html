@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
 
-        <form action="/recommendations" enctype="multipart/form-data" method="post" class="p-2 pb-3">
+        <form id="upload" action="/recommendations" enctype="multipart/form-data" method="post" class="p-2 pb-3">
 
 
 
@@ -11,7 +11,9 @@
                 <legend class="w-auto ">Bulkfile</legend>
                 <div class="form-group">
                     <label for="excel" class="text"></label>
-                    <input type="file" accept=".xlsx" name="excel" id="excel" required>
+                    <input type="file" onchange="change()" accept=".xlsx" name="excel" id="excel" required>
+                    <div style="color: red;" id="errormsg"></div>
+
                 </div>
             </fieldset>
             <fieldset class="form-group border pl-3 pr-3 mb-5">
@@ -48,7 +50,7 @@
 
                 </div>
             </fieldset>
-            <button type="submit" class="btn btn-primary rounded-0">Submit </button>
+            <button type="button" onclick="a()" id="sub" class="btn btn-primary rounded-0">Submit </button>
         </form>
 
 
@@ -60,6 +62,32 @@
         </fieldset>
 
     </div>
+    <!-- preloader div -->
+    <div id="preloader" class="sub d-none">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
 </div>
+<script>
+    // show preloader
+    function a() {
+        if ($("#excel").val() == "") {
+            $("#errormsg").text("*Required file")
+        } else {
 
+            $(".sub").removeClass("d-none");
+
+            document.getElementById("upload").submit();
+
+        }
+
+    }
+    // remove *Required file message
+    function change() {
+        $("#errormsg").text("")
+    }
+</script>
 {% endblock content %}
