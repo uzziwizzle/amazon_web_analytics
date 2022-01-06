@@ -220,7 +220,7 @@ def recommendations():
             dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brand')
             dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Product')
             
-        return render_template("page-recommendations.html",link=country+'/optimization{}.xlsx'.format(date.today()),filename='recommendations for {}.xlsx'.format(date.today()),hide="")
+        return render_template("page-recommendations.html",link=country+'/recommendations for {}.xlsx'.format(date.today()),filename='recommendations for {}.xlsx'.format(date.today()),hide="")
     return render_template("page-recommendations.html",hide="d-none")
     
 
