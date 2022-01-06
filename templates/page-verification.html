@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title> Wecollabo</title>
+
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/img/logo2.jpeg">
+
+    <link href="../static/css/style.css" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@100;300;400;500;700;900&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+</head>
+
+<body class="h-100">
+
+    <body class="h-100">
+        <!-- <body class="h-100" oncontextmenu="return false;"> -->
+
+        <div class="authincation h-100">
+            <div class="container h-100">
+                <div class="row justify-content-center h-100 align-s-center">
+                    <div class="col-md-6">
+
+                        <div class="authincation-content mt-4 mb-4">
+                            {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+                            <div style="background-color: #ebecf0; " class="alert border-0 text-black rounded-0 alert-dismissible fade show" role="alert">
+                                <span>{{ message }}</span>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+                            </div>
+                            {% endfor %} {% endif %} {% endwith %}
+                            <div class="row no-gutters">
+                                <div class="col-xl-12 ">
+                                    <div class="auth-form " style="border-radius:6px !important;">
+                                        <div class="text-center mb-5 ">
+                                            <a href="/"><img src="../static/img/logo1.jpeg" width="150px" alt=""></a>
+
+                                        </div>
+                                        <div class>
+                                            <h4 class="text-center  text-black">Enter Your Email</h4>
+
+                                        </div>
+                                        <form id="basic-form" action="{{action}}" method="post" class="mt-5">
+
+                                            <div class="form-group"><label for="email" class="mb-1 text-black">Email</label><input class=" input_css  rounded-0" type="email" id="email" name="email" required></div>
+
+                                            <div style="color: red;">{{error}}</div>
+
+                                            <div class="text-center mt-4 ">
+                                                <div class="form-group"><button class="btn btn-block border btn-lg rounded-0" type="submit" style="background: #000000;color: rgb(255,255,255);">Submit</button></div>
+
+                                            </div>
+
+                                        </form>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--**********************************
+	Scripts
+***********************************-->
+        <!-- Required vendors -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+        <script src="../static/vendor/global/global.min.js"></script>
+        <script src="../static/js/custom.min.js"></script>
+        <script src="../static/js/deznav-init.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js "></script>
+
+
+        <script>
+            var form = $("#basic-form");
+            form.validate()
+
+            // document.onkeydown = function(e) {
+            //     if (event.keyCode == 123) {
+            //         return false;
+            //     }
+            //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'i'.charCodeAt(0))) {
+            //         return false;
+            //     }
+            //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'c'.charCodeAt(0))) {
+            //         return false;
+            //     }
+            //     if (e.ctrlKey && e.shiftKey && (e.keyCode == 'J'.charCodeAt(0) || e.keyCode == 'j'.charCodeAt(0))) {
+            //         return false;
+            //     }
+            //     if (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'u'.charCodeAt(0))) {
+            //         return false;
+            //     }
+            //     if (e.ctrlKey && (e.keyCode == 'S'.charCodeAt(0) || e.keyCode == 's'.charCodeAt(0))) {
+            //         return false;
+            //     }
+            // }
+        </script>
+    </body>
+
+</html>
