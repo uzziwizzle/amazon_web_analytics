@@ -3,21 +3,19 @@
     <div class="container-fluid">
 
 
-        <form id="upload" action="/recommendations" enctype="multipart/form-data" method="post" class="p-2 pb-3">
+        <form id="upload" action="/recommendations" enctype="multipart/form-data" method="post" class="p-5 pb-3 mb-5">
 
-
-
-            <fieldset class="form-group border pl-3 pr-3 mb-5">
-                <legend class="w-auto ">Bulkfile</legend>
+            <fieldset class="form-group border pl-4 pr-4 pt-3 pb-3 mb-5">
+                <legend class="w-auto ">Bulk File</legend>
                 <div class="form-group">
-                    <label for="excel" class="text"></label>
+                    <label for="excel" class="text"> Upload Amazon bulk file</label><br>
                     <input type="file" onchange="change()" accept=".xlsx" name="excel" id="excel" required>
                     <div style="color: red;" id="errormsg"></div>
-
                 </div>
             </fieldset>
-            <fieldset class="form-group border pl-3 pr-3 mb-5">
+            <fieldset class="form-group border pl-4 pr-4 pt-3 pb-3 mb-5">
                 <legend class="w-auto ">Country</legend>
+                <label for="excel" class="text"> Choose country's data you would like to parse.</label><br>
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -50,7 +48,7 @@
 
                 </div>
             </fieldset>
-            <button type="button" onclick="a()" id="sub" class="btn btn-primary rounded-0">Submit </button>
+            <button type="button" onclick="a()" id="sub" class="btn btn-primary rounded-0">Submit</button>
         </form>
 
 
