@@ -42,6 +42,9 @@ class DBHelper:
             
         })
     #user permission
+    def update_user(self, email, salt, hashed):
+        return self.db.users.update({'email': email }, {'$set': {'salt': salt,"hashed":hashed}})
+
 
 
 
