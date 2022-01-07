@@ -47,8 +47,8 @@ app.config.update(
     DEBUG=True,
     MAIL_SERVER = config.mail_server,
     MAIL_PORT = config.mail_port,
-    MAIL_USE_TLS = False,
-    MAIL_USE_SSL = True,
+    MAIL_USE_TLS = True,
+    MAIL_USE_SSL = False,
     MAIL_USERNAME = config.mail_username,
     MAIL_PASSWORD = config.mail_password,
     MAIL_SUPPRESS_SEND = False,
@@ -56,7 +56,6 @@ app.config.update(
     TESTING = False
     )
 
-recepients = config.recepient
 send_Email=config.sendmails
 # Instantiate Email
 mail = Mail(app)
@@ -364,6 +363,6 @@ def before_request():
 
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port=5000)
 
 

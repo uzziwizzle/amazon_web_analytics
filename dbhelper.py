@@ -2,18 +2,15 @@ import pymongo
 from datetime import date, datetime
 from bson.objectid import ObjectId
 
-DATABASE = "quickweb"
+DATABASE = "amazon_web_analytics"
 
 
 class DBHelper:
 
     def __init__(self):
         client = pymongo.MongoClient(
-            #username ="shiptool",
-            #password = "@",
             host="127.0.0.1",
             port=27017,
-            # authSource="test"
         )   
 
         self.db = client[DATABASE]
@@ -22,10 +19,7 @@ class DBHelper:
         return self.db.users.find_one({
             "email": email
         })
-    # def get_user_id(self, id):
-    #     return self.db.users.find_one({
-    #         "_id":  ObjectId(id)
-    #     })
+
 
     def get_user_by_phone(self, phone):
         return self.db.users.find_one({
@@ -34,7 +28,7 @@ class DBHelper:
 
 
     def add_user(self, email, salt, hashed, phone):
-        self.db.users.insert({
+        self.db.users.insert_one({
             "email": email,
             "salt": salt,
             "hashed": hashed,
