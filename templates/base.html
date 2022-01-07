@@ -53,7 +53,10 @@
     <link rel="stylesheet" type="text/css" href="/static/css/style.css">
     <!-- <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css"> -->
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
+    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
 
     <!--===============================================================================================-->
     <!-- <link rel="stylesheet" type="text/css" href="../static/fonts/linearicons-v1.0.0/icon-font.min.css"> -->
@@ -66,6 +69,23 @@
             padding: 0;
             margin: 0;
             background-color: #f6f6f6;
+        }
+        
+        .choices__list--multiple .choices__item {
+            background-color: #ebecf0;
+            border: 1px solid #ebecf0;
+            color: #000;
+        }
+        
+        .choices[data-type*=select-multiple] .choices__button,
+        .choices[data-type*=text] .choices__button {
+            border-left: 1px solid #000;
+            color: #000 !important;
+        }
+        
+        .choices__list--multiple .choices__item.is-highlighted {
+            background-color: #b8b8b8;
+            border: 1px solid #b8b8b8
         }
         
         #dispaly li p {
@@ -202,7 +222,7 @@
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
                     <li>
-                        <a class="ai-icon"  aria-expanded="false">
+                        <a class="ai-icon" aria-expanded="false">
                             <i class="flaticon-381-book"></i>
                             <span class="nav-text">Dashboard</span>
                         </a>
@@ -214,7 +234,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="ai-icon"  aria-expanded="false">
+                        <a class="ai-icon" aria-expanded="false">
                             <i class="flaticon-381-stopwatch"></i>
                             <span class="nav-text">Optimization</span>
                         </a>
@@ -245,6 +265,9 @@
             <!-- row -->
             <div class="container-fluid">
                 {% block content%} {% endblock content%}
+                <div class="text-center">
+                    <a href="" style="text-decoration-line: underline;" data-toggle="modal" data-target="#exampleModal">Upload Changes</a>
+                </div>
 
             </div>
         </div>
@@ -282,6 +305,57 @@
         Scripts
     ***********************************-->
     <!-- Required vendors -->
+    <!-- Button trigger modal -->
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-0">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Upload Changes</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <form action="/upload" method="post" , enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <label for="multiple">Select Type</label>
+                        <select id="choices-multiple-remove-button" name="type" placeholder="Select upto 3 tags" multiple required>
+                            <option value="SP">SP</option>
+                            <option value="SB">SB</option>
+                            <option value="SD">SD</option>
+        
+                        </select>
+                        <div class="from-group mb-4">
+                            <label for="date">Date of file</label>
+                            <input type="date" class="input_css" name="date" id="date" required>
+
+
+                        </div>
+                        <div class="from-group mb-4">
+                            <labe for="uploadfile">Analysis duration</labe>
+
+                            <input type="number" class="input_css" name="duration" id="duration" min="0" required>
+                        </div>
+                        <div class="from-group mb-4">
+                            <label for="uploadfile">Upload file</label>
+
+                            <input type="file" class="input_css" accept=".xlsx" name="uploadfile" id="uploadfile" required>
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary button_css rounded-0" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary button_css rounded-0">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <script src="../static/vendor/global/global.min.js"></script>
@@ -306,6 +380,16 @@
 
     <script>
         $(document).ready(function() {
+
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 3,
+                searchResultLimit: 3,
+                renderChoiceLimit: 3
+            });
+
+
+
 
 
             $('.deznav .ps__rail-y').addClass('d-none');

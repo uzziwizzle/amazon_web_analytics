@@ -33,7 +33,7 @@ app.secret_key = config.secret_key
 
 s = URLSafeTimedSerializer('Thisisasecret!')
 # Set path for documents upload and restrict files to certain file types
-app.config['UPLOADED_DOCUMENTS_DEST'] = "upload"
+app.config['UPLOADED_DOCUMENTS_DEST'] = "data"
 app.config['UPLOADED_DOCUMENTS_ALLOW'] = ['xlsx']
 docs = UploadSet('documents', DOCUMENTS)
 configure_uploads(app, docs)
@@ -42,19 +42,32 @@ key = Fernet.generate_key()
 mailencrypt = Fernet(key)
 
 env = "TESTING" 
-
-app.config.update(
-    DEBUG=True,
-    MAIL_SERVER = config.mail_server,
-    MAIL_PORT = config.mail_port,
-    MAIL_USE_TLS = True,
-    MAIL_USE_SSL = False,
-    MAIL_USERNAME = config.mail_username,
-    MAIL_PASSWORD = config.mail_password,
-    MAIL_SUPPRESS_SEND = False,
-    MAIL_DEFAULT_SENDER=config.mail_username,
-    TESTING = False
-    )
+if  env == "Prod":
+    app.config.update(
+        DEBUG=True,
+        MAIL_SERVER = config.mail_server,
+        MAIL_PORT = config.mail_port,
+        MAIL_USE_TLS = True,
+        MAIL_USE_SSL = False,
+        MAIL_USERNAME = config.mail_username,
+        MAIL_PASSWORD = config.mail_password,
+        MAIL_SUPPRESS_SEND = False,
+        MAIL_DEFAULT_SENDER=config.mail_username,
+        TESTING = False
+        )
+else:
+        app.config.update(
+        DEBUG=True,
+        MAIL_SERVER = config.mail_server,
+        MAIL_PORT = config.mail_port,
+        MAIL_USE_TLS = False,
+        MAIL_USE_SSL = True,
+        MAIL_USERNAME = config.mail_username,
+        MAIL_PASSWORD = config.mail_password,
+        MAIL_SUPPRESS_SEND = False,
+        MAIL_DEFAULT_SENDER=config.mail_username,
+        TESTING = False
+        )
 
 send_Email=config.sendmails
 # Instantiate Email
@@ -331,6 +344,24 @@ def download(c,link):
 
     path=project_dir+"/data/recommendations/"+c+"/"+link
     return send_file(path, as_attachment=True)
+
+
+@app.route("/upload",methods=["POST"])
+@login_required
+def upload():
+    if request.method=="POST":
+        type = request.form.getlist("type")    
+        imagename = request.files["uploadfile"]
+        datefile=request.form["date"]
+        duration=request.form["duration"]
+        filename=docs.save(imagename,"changes/")
+       
+        mail=DB.get_user(current_user.get_id())
+        DB.upload_data(mail["email"],docs.url(filename),datefile,type,duration)
+        return redirect(url_for("recommendations"))
+
+       
+
 
 
 @app.route("/logout")

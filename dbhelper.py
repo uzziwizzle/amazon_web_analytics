@@ -35,6 +35,16 @@ class DBHelper:
             "phone": phone
             
         })
+    def upload_data(self, email, file, date,type,duration):
+        self.db.upload_data.insert_one({
+            
+            "user": email,
+            "file": file,
+            "date": date,
+            'type':type,
+            'duration':duration
+            
+        })
     #user permission
     def update_user(self, email, salt, hashed):
         return self.db.users.update({'email': email }, {'$set': {'salt': salt,"hashed":hashed}})
