@@ -9,3 +9,5 @@ config.py
 /venv/
 /data/
 nohup.out
+amazon_web_analytics.ini
+amazon_web_analytics.py

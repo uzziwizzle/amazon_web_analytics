@@ -319,8 +319,8 @@ def recommendations():
         except FileExistsError:
             print("Directory " , dirName ,  " already exists")  
         with pd.ExcelWriter(project_dir+"/data/recommendations/{}/recommendations for {}.xlsx".format(country,date.today())) as writer:
-            dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brand')
-            dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Product')
+            dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
+            dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
             
         return render_template("page-recommendations.html",link=country+'/recommendations for {}.xlsx'.format(date.today()),filename='recommendations for {}.xlsx'.format(date.today()),hide="")
     return render_template("page-recommendations.html",hide="d-none")
