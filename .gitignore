@@ -8,3 +8,4 @@ upload/
 config.py
 /venv/
 /data/
+nohup.out
