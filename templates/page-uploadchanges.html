@@ -1,0 +1,105 @@
+{% extends 'base.html' %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+<div style="background-color: #ebecf0; " class="alert border-0 text-black rounded-0 alert-dismissible fade show" role="alert">
+    <span>{{ message }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+
+<div class="card rounded-0">
+    <div class="container-fluid">
+
+        <form action="/upload" method="post" id="formupload" enctype="multipart/form-data" class="p-5 pb-3 mb-5">
+            <div class="pl-4 pr-4 pt-3  mb-5">
+                <div class="from-group mb-4">
+                    <label for="date">Date of File</label>
+                    <input type="date" class="input_css" name="date" id="date" required>
+
+                    <input type="hidden" value="{{id}}" id="id" name='id'>
+                </div>
+
+                <div class="from-group mb-4">
+                    <label for="uploadfile">Analysis Duration</label>
+                    <div class="row">
+                        <div class="col-2">
+
+
+                            <input type="number" class="input_css" name="duration" id="duration" min="0" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="from-group">
+                    <label for="uploadfile">Upload File</label>
+
+                    <input type="file" class="input_css" accept=".xlsx" name="uploadfile" id="uploadfile" required>
+                </div>
+            </div>
+
+            <div class="pl-4 pr-4">
+                <button type="button" class="btn  btn-primary button_css rounded-0" onclick="submitdate()">Submit</button>
+
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn d-none btn-primary" id="modalbuttonhit" data-toggle="modal" data-target="#exampleModal">
+    Launch demo modal
+  </button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content rounded-0">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <p id="formid"></p>
+                <p id="formdata"></p>
+                <p id="formfiletype"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary rounded-0">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function submitdate() {
+        var date = document.getElementById("date").value;
+        var id = document.getElementById("id").value;
+
+        $.ajax({
+            url: '/viewchanges', // point to server-side URL
+            type: "POST",
+            data: {
+                date: date,
+                id: id,
+                'filetype': 'bulk file'
+            },
+            success: function(response) {
+                alert(response)
+                var formid = response.id
+                var formdate = response.date
+                var formfiletype = response.filetype
+                document.getElementById("formid").innerHTML = formid
+                document.getElementById("formdata").innerHTML = formdate
+                document.getElementById("formfiletype").innerHTML = formfiletype;
+                document.getElementById('modalbuttonhit').click()
+
+
+            }
+        });
+    }
+</script>
+
+{% endblock content %}

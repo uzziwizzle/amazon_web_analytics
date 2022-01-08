@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% block content %} {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+<div style="background-color: #ebecf0; " class="alert border-0 text-black rounded-0 alert-dismissible fade show" role="alert">
+    <span>{{ message }}</span>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>
+</div>
+{% endfor %} {% endif %} {% endwith %}
+<div class="card rounded-0">
+    <div class="container-fluid">
+        <div class="p-5 pb-3 mb-5">
+            <div class="pl-4 pr-4 pt-3">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Date</th>
+                            <th scope="col">Country</th>
+                            <th scope="col"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in tables %}
+
+                        <tr>
+                            <th scope="row">{{i["date"]}}</th>
+                            <td>{{i["country"]}}</td>
+                            <td> <button type="button" class="btn btn-secondary light sharp" data-toggle="dropdown">
+                            <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
+                                <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                    <rect x="0" y="0" width="24" height="24" />
+                                    <circle fill="#000000" cx="5" cy="12" r="2" />
+                                    <circle fill="#000000" cx="12" cy="12" r="2" />
+                                    <circle fill="#000000" cx="19" cy="12" r="2" />
+                                </g>
+                            </svg>
+                        </button>
+
+                                <div class="dropdown-menu rounded-0" aria-labelledby="dropdownMenuLink">
+
+                                    <a class="dropdown-item" href="/uploadchanges/{{i['_id']}}">Upload Changes</a>
+                                    <a class="dropdown-item" href="/download/{{i['country']}}/{{i['file'].split('/')[-1]}}">Download</a>
+
+
+                                </div>
+
+
+                            </td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock content %}

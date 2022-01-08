@@ -27,6 +27,7 @@ class DBHelper:
         })
 
 
+
     def add_user(self, email, salt, hashed, phone):
         self.db.users.insert_one({
             "email": email,
@@ -35,19 +36,45 @@ class DBHelper:
             "phone": phone
             
         })
-    def upload_data(self, email, file, date,type,duration):
-        self.db.upload_data.insert_one({
+    def upload_changes(self, email, file, date,type,duration,id):
+        self.db.upload_changes.insert_one({
             
             "user": email,
             "file": file,
             "date": date,
             'type':type,
-            'duration':duration
+            'duration':duration,
+            'recommendation_id':id,
+            'created_at':datetime.utcnow()
+            
+        })
+    def upload_recomendations(self, email, file, date,country,type,duration):
+        self.db.upload_recomendations.insert_one({
+            "user": email,
+            "file": file,
+            "date": date,
+            'type': type,
+            'country':country,
+            'duration':duration,
+            'created_at':datetime.utcnow()
             
         })
     #user permission
     def update_user(self, email, salt, hashed):
         return self.db.users.update({'email': email }, {'$set': {'salt': salt,"hashed":hashed}})
+
+# get latest value
+    def finddata(self, date): 
+        return self.db.upload_recomendations.find({'date':date}).sort('_id',-1).limit(1)
+
+    def findallrecomendationsdate(self, date):
+        return self.db.upload_recomendations.find({'date':date})
+    def findallrecomendations(self):
+        return self.db.upload_recomendations.find({})
+
+
+
+    
 
 
 

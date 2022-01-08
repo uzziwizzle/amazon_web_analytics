@@ -145,7 +145,7 @@ def forgotmail():
         msg = Message("FORGOT PASSWORD", sender=send_Email, recipients=[email])
         link = url_for('newpassword', token=token, _external=True)
 
-        msg.html =render_template('emails/email_forgot.html',link=link)
+        msg.html =render_template('emails/email-forgot.html',link=link)
         mail.send(msg)
         flash("Please check your email and follow the instructions provided")
         return render_template("page-verification.html",action="/forgotmail")
@@ -222,6 +222,13 @@ def recommendations():
         dfProductTemplate = pd.DataFrame(columns = ['Record ID', 'Record Type', 'Campaign ID', 'Campaign', 'Ad Group', 'Max Bid', 'Keyword or Product Targeting', 'Product Targeting ID', 'Match Type', 'Campaign Status', 'Ad Group Status', 'Status', 'Impressions', 'Clicks', 'Spend', 'Orders', 'Sales', 'ACoS'])
         filename = request.files["excel"]
         country = request.form["country"]
+        formdate = request.form["date"]
+        duration = request.form["duration"]
+        filetype = request.form["filetype"]
+        filenamedb=docs.save(filename,"recommendations/upload_recommendations",formdate+".")
+        DB.upload_recomendations(DB.get_user(current_user.get_id())["email"],docs.url(filenamedb),formdate,country,filetype,int(duration))
+        # a= DB.finddata(date)
+
         pd.set_option('display.max_rows', 1000)
 
         # Create empty product templates dataframe
@@ -325,42 +332,97 @@ def recommendations():
         dfProductTemplate = dfProductTemplate.astype(str)
 
         dfProductTemplate_SB = dfProductTemplate.copy()
-        dirName=project_dir+"/data/recommendations/{}".format(country)
+        dirName=project_dir+"/data/recommendations/download_recommendations/{}".format(country)
         try:
             os.makedirs(dirName)    
             print("Directory " , dirName ,  " Created ")
         except FileExistsError:
             print("Directory " , dirName ,  " already exists")  
-        with pd.ExcelWriter(project_dir+"/data/recommendations/{}/recommendations for {}.xlsx".format(country,date.today())) as writer:
-            dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
-            dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
+        alldates=DB.findallrecomendationsdate(formdate)
+        if str(alldates.count())  == 0:
+            with pd.ExcelWriter(project_dir+"/data/recommendations/download_recommendations/{}/{}.xlsx".format(country,formdate)) as writer:
+                dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
+                dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
+            link=country+'/{}.xlsx'.format(formdate)
+
+        else:
+            with pd.ExcelWriter(project_dir+"/data/recommendations/download_recommendations/{}/{}_{}.xlsx".format(country,formdate,str(alldates.count()))) as writer:
+                dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
+                dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
+            link=country+'/{}_{}.xlsx'.format(formdate,str(alldates.count()))
+
+
             
-        return render_template("page-recommendations.html",link=country+'/recommendations for {}.xlsx'.format(date.today()),filename='recommendations for {}.xlsx'.format(date.today()),hide="")
+        return render_template("page-recommendations.html",link=link,filename='{}.xlsx'.format(formdate),hide="")
     return render_template("page-recommendations.html",hide="d-none")
     
 
 @app.route("/download/<c>/<link>")
+@login_required
 def download(c,link):
 
-    path=project_dir+"/data/recommendations/"+c+"/"+link
+    path=project_dir+"/data/recommendations/download_recommendations/"+c+"/"+link
     return send_file(path, as_attachment=True)
 
 
-@app.route("/upload",methods=["POST"])
+@app.route("/uploadchanges/<id>",methods=["POST","GET"])
 @login_required
-def upload():
+def upload(id):
     if request.method=="POST":
         type = request.form.getlist("type")    
         imagename = request.files["uploadfile"]
         datefile=request.form["date"]
         duration=request.form["duration"]
+        id=request.form["id"]
         filename=docs.save(imagename,"changes/")
        
         mail=DB.get_user(current_user.get_id())
-        DB.upload_data(mail["email"],docs.url(filename),datefile,type,duration)
+        DB.upload_changes(mail["email"],docs.url(filename),datefile,type,duration,id)
         return redirect(url_for("recommendations"))
+    return render_template("page-uploadchanges.html",id=id)
 
-       
+
+@app.route("/bulkfile",methods=["POST","GET"])
+@login_required
+def bulkfile():
+    allreco=DB.findallrecomendations()
+    dates=[]
+    tables=[]
+
+    for i in allreco:
+        dates.append(i["date"])
+    dates = list(dict.fromkeys(dates))
+    print(dates)
+    for i in dates:
+        a= DB.finddata(i)
+        for j in a:
+            tables.append(j)
+    return render_template("page-bulktable.html",tables=tables)
+@app.route("/searchtermreport",methods=["POST","GET"])
+@login_required
+def searchtermreport():
+    pass
+
+
+@app.route("/downloadfile<link>")
+@login_required
+def downloadfile(link):
+
+    path=link
+    return send_file(path, as_attachment=True)
+
+@app.route("/viewchanges",methods=["POST","GET"])
+@login_required
+def viewchanges():
+    id= request.form["id"]
+    date=request.form['date']
+    filetype=request.form['filetype']
+    print(id,"##############################################")
+    return jsonify({'id':id,'date':date,'filetype':filetype})
+
+    
+
+
 
 
 

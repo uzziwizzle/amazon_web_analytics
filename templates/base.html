@@ -54,9 +54,7 @@
     <!-- <script src="../static/vendor/jquery/jquery-3.2.1.min.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css"> -->
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.css">
-    <script src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/choices.min.js"></script>
+
 
     <!--===============================================================================================-->
     <!-- <link rel="stylesheet" type="text/css" href="../static/fonts/linearicons-v1.0.0/icon-font.min.css"> -->
@@ -70,8 +68,7 @@
             margin: 0;
             background-color: #f6f6f6;
         }
-        
-        .choices__list--multiple .choices__item {
+        /* .choices__list--multiple .choices__item {
             background-color: #ebecf0;
             border: 1px solid #ebecf0;
             color: #000;
@@ -86,6 +83,27 @@
         .choices__list--multiple .choices__item.is-highlighted {
             background-color: #b8b8b8;
             border: 1px solid #b8b8b8
+        }
+         */
+        
+        .select2-selection {
+            -webkit-box-shadow: 0;
+            box-shadow: 0;
+            background-color: #fff;
+            border: 1px solid #ebe3e3 !important;
+            border-radius: 0 !important;
+            font-size: 16px !important;
+            outline: 0;
+            min-height: 39px;
+            text-align: left;
+        }
+        
+        .select2-selection__rendered {
+            margin: 4px;
+        }
+        
+        .select2-selection__arrow {
+            margin: 4px;
         }
         
         #dispaly li p {
@@ -238,6 +256,20 @@
                             <i class="flaticon-381-stopwatch"></i>
                             <span class="nav-text">Optimization</span>
                         </a>
+
+                    </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="/uploadchanges" aria-expanded="false">
+                            <i class="flaticon-381-upload-1"></i>
+                            <span class="nav-text">Upload Changes</span>
+                        </a>
+                        <ul aria-expanded="false">
+
+                            <li><a href="{{ url_for('bulkfile') }}">Bulk File</a></li>
+                            <li><a href="{{ url_for('searchtermreport')}}">Search Term Report</a></li>
+
+
+                        </ul>
                     </li>
                     <li>
                         <a href="/logout" class=" ai-icon">
@@ -265,9 +297,9 @@
             <!-- row -->
             <div class="container-fluid">
                 {% block content%} {% endblock content%}
-                <div class="text-center">
-                    <a href="" style="text-decoration-line: underline;" data-toggle="modal" data-target="#exampleModal">Upload Changes</a>
-                </div>
+                <!-- <div class="text-center">
+                    <a href="/uploadchanges" style="text-decoration-line: underline;">Upload Changes</a>
+                </div> -->
 
             </div>
         </div>
@@ -309,51 +341,7 @@
 
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content rounded-0">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Upload Changes</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-                </div>
-                <form action="/upload" method="post" , enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <label for="multiple">Select Type</label>
-                        <select id="choices-multiple-remove-button" name="type" placeholder="Select upto 3 tags" multiple required>
-                            <option value="SP">SP</option>
-                            <option value="SB">SB</option>
-                            <option value="SD">SD</option>
-        
-                        </select>
-                        <div class="from-group mb-4">
-                            <label for="date">Date of file</label>
-                            <input type="date" class="input_css" name="date" id="date" required>
 
-
-                        </div>
-                        <div class="from-group mb-4">
-                            <labe for="uploadfile">Analysis duration</labe>
-
-                            <input type="number" class="input_css" name="duration" id="duration" min="0" required>
-                        </div>
-                        <div class="from-group mb-4">
-                            <label for="uploadfile">Upload file</label>
-
-                            <input type="file" class="input_css" accept=".xlsx" name="uploadfile" id="uploadfile" required>
-                        </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary button_css rounded-0" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary button_css rounded-0">Submit</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 
 
 
@@ -380,13 +368,23 @@
 
     <script>
         $(document).ready(function() {
+            // $("#cho").select2({
+            //     placeholder: "Select a state",
 
-            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
-                removeItemButton: true,
-                maxItemCount: 3,
-                searchResultLimit: 3,
-                renderChoiceLimit: 3
+            // });
+            $('#cho').select2({ // init Select2 on form's name field
+                placeholder: "Choose Type ",
+                allowClear: true,
+                theme: 'bootstrap'
             });
+            $('#cho').val(null).trigger('change');
+            // var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            //     removeItemButton: true,
+            //     maxItemCount: 3,
+            //     searchResultLimit: 3,
+            //     renderChoiceLimit: 3,
+            //     placeholder: 'Search for an Arctic Monkeys record',
+            // });
 
 
 
