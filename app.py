@@ -176,6 +176,7 @@ def register():
         except Exception as e:
                 print("no bbbbbbbbbbb")
                 print (str(e))
+        flash("Signup Susscessfully")
         return redirect(url_for("login"))
     return redirect(url_for("verification"))
 
@@ -205,7 +206,7 @@ def setnewpassword():
             
             if DB.get_user(email):
                 
-                DB.update_user(email,salt, hashed)
+                DB.update_user_password(email,salt, hashed)
                 flash("Password changed")
                 return redirect(url_for("login"))
             return redirect(url_for("login"))
@@ -227,7 +228,6 @@ def recommendations():
         filetype = request.form["filetype"]
         filenamedb=docs.save(filename,"recommendations/upload_recommendations",formdate+".")
         DB.upload_recomendations(DB.get_user(current_user.get_id())["email"],docs.url(filenamedb),formdate,country,filetype,int(duration))
-        # a= DB.finddata(date)
 
         pd.set_option('display.max_rows', 1000)
 
@@ -352,9 +352,9 @@ def recommendations():
             link=country+'/{}_{}.xlsx'.format(formdate,str(alldates.count()))
 
 
-            
-        return render_template("page-recommendations.html",link=link,filename='{}.xlsx'.format(formdate),hide="")
-    return render_template("page-recommendations.html",hide="d-none")
+        flash("Successfully Uploaded")
+        return render_template("page-recommendations.html",link=link,filename='{}.xlsx'.format(formdate), hide="", ftype=filetype)
+    return render_template("page-recommendations.html",link="",filename="",hide="d-none", ftype="")
     
 
 @app.route("/download/<c>/<link>")
@@ -368,24 +368,28 @@ def download(c,link):
 @app.route("/uploadchanges/<id>",methods=["POST","GET"])
 @login_required
 def upload(id):
+    recomendationid=DB.getrecomendations(id)
+    recomendationtype=recomendationid["type"]
     if request.method=="POST":
-        type = request.form.getlist("type")    
+        type = request.form['type']
         imagename = request.files["uploadfile"]
-        datefile=request.form["date"]
+        date=request.form["date"]
         duration=request.form["duration"]
         id=request.form["id"]
-        filename=docs.save(imagename,"changes/")
+        filename=docs.save(imagename,"changes/",date+".")
        
         mail=DB.get_user(current_user.get_id())
-        DB.upload_changes(mail["email"],docs.url(filename),datefile,type,duration,id)
-        return redirect(url_for("recommendations"))
-    return render_template("page-uploadchanges.html",id=id)
+        DB.upload_changes(mail["email"],docs.url(filename),date,type,int(duration),id)
+        flash("Successfully Uploaded")
+        return redirect(url_for("bulkfile"))
+    return render_template("page-uploadchanges.html",id=id,recomendationtype=recomendationtype)
 
 
 @app.route("/bulkfile",methods=["POST","GET"])
 @login_required
 def bulkfile():
     allreco=DB.findallrecomendations()
+    # print(allreco)
     dates=[]
     tables=[]
 
@@ -394,10 +398,12 @@ def bulkfile():
     dates = list(dict.fromkeys(dates))
     print(dates)
     for i in dates:
-        a= DB.finddata(i)
+        a= DB.findlastest(i)
         for j in a:
-            tables.append(j)
+            tables.append(j) 
     return render_template("page-bulktable.html",tables=tables)
+    # return  json.dumps((allreco.limit(2)))
+    # return jsonify(tables)
 @app.route("/searchtermreport",methods=["POST","GET"])
 @login_required
 def searchtermreport():

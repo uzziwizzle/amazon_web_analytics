@@ -36,6 +36,12 @@ class DBHelper:
             "phone": phone
             
         })
+
+    def update_user_password(self, email, salt, hashed):
+        return self.db.users.update({'email': email }, {'$set': {'salt': salt,"hashed":hashed}})
+
+
+
     def upload_changes(self, email, file, date,type,duration,id):
         self.db.upload_changes.insert_one({
             
@@ -59,18 +65,21 @@ class DBHelper:
             'created_at':datetime.utcnow()
             
         })
-    #user permission
-    def update_user(self, email, salt, hashed):
-        return self.db.users.update({'email': email }, {'$set': {'salt': salt,"hashed":hashed}})
 
-# get latest value
-    def finddata(self, date): 
+    def findallrecomendations(self):
+        # return self.db.upload_recomendations.find({},{'_id': False})
+        return self.db.upload_recomendations.find({})
+    def getrecomendations(self,id):
+         return self.db.upload_recomendations.find_one({'_id':ObjectId(id)})
+
+# get latest value by date in recomendations
+    def findlastest(self, date): 
         return self.db.upload_recomendations.find({'date':date}).sort('_id',-1).limit(1)
 
     def findallrecomendationsdate(self, date):
         return self.db.upload_recomendations.find({'date':date})
-    def findallrecomendations(self):
-        return self.db.upload_recomendations.find({})
+    
+
 
 
 

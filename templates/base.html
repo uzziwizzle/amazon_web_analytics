@@ -265,8 +265,15 @@
                         </a>
                         <ul aria-expanded="false">
 
-                            <li><a href="{{ url_for('bulkfile') }}">Bulk File</a></li>
-                            <li><a href="{{ url_for('searchtermreport')}}">Search Term Report</a></li>
+                            <li>
+                                <a class=" ai-icon" href="{{ url_for('bulkfile') }}" aria-expanded="false">
+                                    <i class="flaticon-381-folder-3"></i> Bulk File</a>
+                            </li>
+                            <li>
+                                <a class=" ai-icon" href="{{ url_for('searchtermreport')}}" aria-expanded="false">
+
+                                    <i class="flaticon-381-hourglass-2"></i> Search Term Report</a>
+                            </li>
 
 
                         </ul>
@@ -372,12 +379,8 @@
             //     placeholder: "Select a state",
 
             // });
-            $('#cho').select2({ // init Select2 on form's name field
-                placeholder: "Choose Type ",
-                allowClear: true,
-                theme: 'bootstrap'
-            });
-            $('#cho').val(null).trigger('change');
+
+            // $('#cho').val(null).trigger('change');
             // var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
             //     removeItemButton: true,
             //     maxItemCount: 3,

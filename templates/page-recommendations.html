@@ -11,20 +11,31 @@
 
 
 
-        <form id="upload" action="/recommendations" enctype="multipart/form-data" method="post" class="p-5 pb-3 mb-5">
-            <div class="from-group mb-4">
+        <form id="upload" action="/recommendations" enctype="multipart/form-data" method="post" class="pl-5 pr-5 pt-3 pb-5 ">
+            <div class="from-group ">
                 <label for="cho">Select Type</label>
                 <select id="cho" name="filetype" onchange="changet()" required>
-                  
-                    <option value="Bulk-File">Bulk File</option>
+                    {% if ftype == "Bulk-File" %}
+                 
+                    <option selected value="Bulk-File">Bulk File</option>
                     <option value="Search-Term-Report">Search Term Report</option>
+                    {% elif ftype == "Search-Term-Report" %}
+                  
+                    <option  value="Bulk-File">Bulk File</option>
+                    <option selected value="Search-Term-Report">Search Term Report</option>
+                    {% else %}
+                    <option  value=""></option>
+                    <option  value="Bulk-File">Bulk File</option>
+                    <option value="Search-Term-Report">Search Term Report</option>
+                    {% endif %}
+
                 
                 </select>
             </div>
             <div id="typebulk" class="d-none">
 
 
-                <fieldset class="form-group border pl-4 pr-4 pt-3 pb-3 mb-5">
+                <fieldset class="form-group border pl-4 pr-4 mt-4 pb-3 mb-5">
                     <legend class="w-auto ">Bulk File</legend>
                     <div class="from-group mb-4">
                         <label for="date">Date of File</label>
@@ -45,9 +56,11 @@
                     <div class="form-group">
                         <label for="excel" class="text"> Upload Amazon bulk file</label><br>
                         <input type="file" onchange="change()" accept=".xlsx" name="excel" id="excel" required>
-                        <div style="color: red;" id="errormsg"></div>
+
                     </div>
+                    <div style="color: red;" id="errormsg"></div>
                 </fieldset>
+
                 <fieldset class="form-group border pl-4 pr-4 pt-3 pb-3 mb-5">
                     <legend class="w-auto ">Country</legend>
                     <label for="excel" class="text"> Choose country's data you would like to parse.</label><br>
@@ -87,8 +100,8 @@
             </div>
         </form>
 
-        <div class="p-5 pb-3 mb-5">
-            <fieldset class="form-group {{hide}} border pl-3 pr-3">
+        <div class="pl-5 pr-5 pt-3 pb-3 mb-3 {{hide}}">
+            <fieldset class="form-group  border pl-3 pr-3">
                 <legend class="w-auto ">Download</legend>
                 <div class="form-group">
                     <a class="text-blue" style="text-decoration-line: underline;" href="/download/{{link}}">Download recommendations for {{filename}}</a>
@@ -108,10 +121,20 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        $(document).ready(function() {
+            $("#cho").select2({
+                placeholder: "Select a Type",
+
+            });
+
+            changet();
+        });
+    });
     // show preloader
     function a() {
-        if ($("#excel").val() == "") {
-            $("#errormsg").text("*Required file")
+        if ($("#excel").val() == "" || $("#date").val() == "" || $("#duration").val() == "") {
+            $("#errormsg").text("*All fields are required ")
         } else {
 
             $(".sub").removeClass("d-none");
@@ -124,9 +147,11 @@
     // remove *Required file message
     function change() {
         $("#errormsg").text("")
+
     }
 
     function changet() {
+
         if ($("#cho").val() == "Bulk-File") {
             $("#typebulk").removeClass("d-none")
         } else {

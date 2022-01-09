@@ -10,13 +10,19 @@
 <div class="card rounded-0">
     <div class="container-fluid">
 
-        <form action="/upload" method="post" id="formupload" enctype="multipart/form-data" class="p-5 pb-3 mb-5">
-            <div class="pl-4 pr-4 pt-3  mb-5">
+        <form action="/uploadchanges/{{id}}" method="post" id="formupload" enctype="multipart/form-data" class="pl-5 pr-5 pt-3 pb-5 ">
+            <div class="pl-4 pr-4  mb-5">
+                <div class="from-group mb-4">
+                    <label for="date">Type</label> {% if recomendationtype == "Bulk-File" %}
+                    <input type="text" class="input_css" value="Bulk File" readonly> {% else %}
+                    <input type="text" class="input_css" value="Search Term Report" readonly> {% endif %}
+                </div>
                 <div class="from-group mb-4">
                     <label for="date">Date of File</label>
                     <input type="date" class="input_css" name="date" id="date" required>
 
                     <input type="hidden" value="{{id}}" id="id" name='id'>
+                    <input type="hidden" value="{{recomendationtype}}" id="type" name='type'>
                 </div>
 
                 <div class="from-group mb-4">
@@ -56,7 +62,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content rounded-0">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">View Changes</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -68,7 +74,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary rounded-0" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary rounded-0">Save changes</button>
+                <button type="button" onclick="formsubmit()" class="btn btn-primary rounded-0">Confirm</button>
             </div>
         </div>
     </div>
@@ -87,7 +93,7 @@
                 'filetype': 'bulk file'
             },
             success: function(response) {
-                alert(response)
+
                 var formid = response.id
                 var formdate = response.date
                 var formfiletype = response.filetype
@@ -99,6 +105,10 @@
 
             }
         });
+    }
+
+    function formsubmit() {
+        document.getElementById('formupload').submit()
     }
 </script>
 
