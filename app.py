@@ -339,17 +339,18 @@ def recommendations():
         except FileExistsError:
             print("Directory " , dirName ,  " already exists")  
         alldates=DB.findallrecomendationsdate(formdate)
-        if str(alldates.count())  == 0:
+        # return int(len(list(alldates)))
+        if int(len(list(alldates)))== 0:
             with pd.ExcelWriter(project_dir+"/data/recommendations/download_recommendations/{}/{}.xlsx".format(country,formdate)) as writer:
                 dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
                 dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
             link=country+'/{}.xlsx'.format(formdate)
 
         else:
-            with pd.ExcelWriter(project_dir+"/data/recommendations/download_recommendations/{}/{}_{}.xlsx".format(country,formdate,str(alldates.count()))) as writer:
+            with pd.ExcelWriter(project_dir+"/data/recommendations/download_recommendations/{}/{}_{}.xlsx".format(country,formdate,str(len(list(alldates))))) as writer:
                 dfProductTemplate_SB.to_excel(writer, sheet_name='Sponsored Brands Campaigns')
                 dfProductTemplate_SP.to_excel(writer, sheet_name='Sponsored Products Campaigns')
-            link=country+'/{}_{}.xlsx'.format(formdate,str(alldates.count()))
+            link=country+'/{}_{}.xlsx'.format(formdate,str(len(list(alldates))))
 
 
         flash("Successfully Uploaded")
